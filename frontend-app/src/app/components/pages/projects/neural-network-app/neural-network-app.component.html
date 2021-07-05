@@ -1,0 +1,128 @@
+<app-body-page>
+    <div class="col-12" style="height: 25px;"></div>
+    <div class="row mb-4 justify-content-center">
+        
+        <!-- component imports: step 1 -->
+        <div class="col-12 col-md-4">
+            <h2 class="mb-3 text-center">1. pick an image</h2>
+            <app-image-picker></app-image-picker>
+            <app-upload-img></app-upload-img>
+        </div>
+
+        <!-- api post response: step 2 -->
+        <div 
+            class="col-12 col-md-4" 
+            *ngIf="imageChosen === true"
+            [@enterTrigger]>
+
+            <h2 class="mb-3 text-center">2. view results</h2>
+
+            <!-- picture -->
+            <div 
+                class="col-12">
+                <img 
+                    src="{{ selectedImage }}" 
+                    alt="" 
+                    class="img-fluid w-100 mb-3 rounded-lg" 
+                    style="max-height: 150px;">
+            </div>
+
+            <!-- spinner -->
+            <div
+                style="display: flex; justify-content: center;"
+                *ngIf="postState == 'waiting'"
+                [@waitForPostTrigger]>
+                <mat-spinner color='accent' value='5'></mat-spinner>
+            </div>
+
+            <!-- response body -->
+            <div
+                *ngIf="currentPostResponse"
+                [@waitForPostTrigger]="postState">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-auto" style="padding-right: 0;">
+                                <h4 *ngIf="checkForVowel()">This is an: </h4>
+                                <h4 *ngIf="!checkForVowel()">This is a: </h4>
+                            </div>
+                            <div class="col-auto">
+                                <p style="margin-bottom: 0; margin-top: .15rem;">
+                                    {{ currentPostResponse.guess1.category }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto" style="padding-right: 0;">
+                                <h4>With: </h4>
+                            </div>
+                            <div class="col-auto">
+                                <p style="margin-bottom: 0; margin-top: .15rem;">
+                                    {{ currentPostResponse.guess1.confidence }}% confidence
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div 
+                        class="container"
+                        *ngIf='currentPostResponse.guess2.confidence > 10'
+                        [@enterTrigger]>
+                        <div class="row">
+                            <div class="col-auto" style="padding-right: 0;">
+                                <h4>Next Guess: </h4>
+                            </div>
+                            <div class="col-auto">
+                                <p style="margin-bottom: 0; margin-top: .15rem;">
+                                    {{ currentPostResponse.guess2.category }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                <br>
+
+            </div>
+
+            <div class="col-12" style="height: 50px;"></div>
+
+        </div>
+
+        <!-- feedback: step 3 -->
+        <div 
+            class="col-12 col-md-4" 
+            *ngIf="currentPostResponse"
+            [@feedbackTrigger]>
+
+            <h2 class="mb-4 text-center">3. verify results</h2>
+
+            <div class="col-12 mb-2" style="display: flex; justify-content: center;">
+                <h6> was this prediction correct?</h6>
+            </div>
+
+            <!-- feedback buttons -->
+            <div
+                *ngIf="currentPostResponse">
+
+                    <div class="container">
+                        <div class="row" style="display: flex; justify-content: center;">
+                            <div class="col-auto" style="padding-right: 0;">
+                                <button type="button" class="btn btn-success btn-lg">
+                                    yes
+                                </button>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-danger btn-lg">
+                                    no
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                <br>
+            </div>
+
+        </div>
+
+    </div>
+</app-body-page>

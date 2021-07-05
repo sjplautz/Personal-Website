@@ -1,0 +1,13 @@
+<app-media-body>
+    <h4 class="list-group-item-heading">{{ project.name }}</h4>
+    <p class="list-group-item-text">{{ project.description }}</p>
+    <button 
+        *ngIf=" project.ready " 
+        type="button" 
+        routerLink="{{ project.route }}"
+        class="btn btn-secondary">
+        Check It Out
+    </button>
+    <img src="{{ project.imagePath }}" alt="{{ project.name }}" class="img-fluid img-thumbnail w-100"
+        style="min-height: 100px; min-width: 150px; max-height: 125px;">
+</app-media-body>

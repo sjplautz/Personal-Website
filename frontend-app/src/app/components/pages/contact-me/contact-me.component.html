@@ -1,0 +1,19 @@
+<app-body-page>
+    <h3>Contact Me</h3>
+    <p>If you would like to find out more about me, you can reach me at the following:</p>
+    <ul>
+        <li>LinkedIn:
+            <a [attr.href]="this.contactMe.linkedin" target='_blank'>
+                {{this.contactMe.linkedin}}
+            </a>
+        </li>
+        <li>GitHub:
+            <a [attr.href]="this.contactMe.github" target='_blank'>
+                {{this.contactMe.github}}
+            </a> 
+        </li>
+        <li>email:
+            {{this.contactMe.email}}
+        </li>
+    </ul>
+</app-body-page>

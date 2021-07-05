@@ -1,0 +1,69 @@
+def modifiedApps = []
+def gv
+
+pipeline {
+    agent none
+
+    environment {
+        REGISTRY = "sjplautz/web-portfolio"
+        DOCKER_CREDS = credentials('dockerhub-creds')
+        APPS = "frontend-app,api-app" // neuralnetwork-app excluded
+        SCRIPTS_PATH = "Jenkins"
+    }
+
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }    
+
+    stages {
+
+        stage('load scripts'){
+            agent{
+                label 'master'
+            }
+            steps{
+                script{
+                    gv = load "${SCRIPTS_PATH}/scripts.groovy"
+                }
+            }
+        }
+        
+        stage('determine modified apps'){
+            agent{
+                label 'master'
+            }
+            steps{
+                script{
+                    modifiedApps = gv.getModifiedApps(APPS)
+                    modifiedApps.each{ print it }
+                }
+            }
+        }
+
+        stage('fetch dependencies and build web artifacts') {
+            agent{
+                label 'node-agent'
+            }
+            steps {
+                script{
+                    gv.apply(modifiedApps, gv.&getdeps)
+                    gv.apply(modifiedApps, gv.&compileApps)
+                }
+            }
+        }
+
+        stage('build and push docker images') {
+            agent {
+                label "docker-agent"
+            }
+            steps{
+                script{
+                    sh 'docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW'
+                    gv.apply(modifiedApps, gv.&buildContainers)
+                }
+            }
+        }
+        
+    }
+    
+}
