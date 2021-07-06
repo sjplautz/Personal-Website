@@ -19,12 +19,12 @@
 
 
             <!-- result output: step 2 -->
-            <div class="col-12 col-md-3" *ngIf="imageSelected === 'show'">
+            <div class="col-12 col-md-3" *ngIf="imgChosen">
                 <app-results></app-results>
             </div>
 
             <!-- feedback: step 3 -->
-            <div class="col-12 col-md-3" *ngIf="appSvc.currentPostResponse">
+            <div class="col-12 col-md-3" *ngIf="appSvc.hasPost">
                 <app-feedback></app-feedback>
             </div>
 

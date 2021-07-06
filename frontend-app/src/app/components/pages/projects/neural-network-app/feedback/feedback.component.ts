@@ -14,7 +14,7 @@ import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app.se
             'height': 0, 
             'opacity': 0 
           }),
-          animate('1s 1.5s ease-out', 
+          animate('1s 1.25s ease-out', 
                   style({ opacity: 1 })
           )
       ]),

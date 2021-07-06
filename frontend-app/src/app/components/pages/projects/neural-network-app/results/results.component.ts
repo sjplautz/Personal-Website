@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app.service';
 import { HttpService } from 'app/services/shared/http.service';
 
@@ -12,27 +12,27 @@ import { HttpService } from 'app/services/shared/http.service';
 
     trigger('enterTrigger', [
       transition(':enter', [
-        style({height: 0, opacity: 0 }),
-        animate('500ms ease-out', 
-                style({ opacity: 1 })
+        style({ height: 0, opacity: 0 }),
+        animate('500ms ease-out',
+          style({ opacity: 1 })
         )
       ])
     ]),
 
     trigger('waitForPostTrigger', [
       transition(':enter', [
-          style({
-            'height': 0, 
-            'opacity': 0 
-          }),
-          animate('1s ease-out', 
-                  style({ opacity: 1 })
-          )
+        style({
+          'height': 0,
+          'opacity': 0
+        }),
+        animate('1s ease-out',
+          style({ opacity: 1 })
+        )
       ]),
       transition(':leave', [
         style({ 'opacity': 1 }),
-        animate('500ms ease-in', 
-                style({ height: 0, opacity: 0 })
+        animate('500ms ease-in',
+          style({ height: 0, opacity: 0 })
         )
       ]),
     ]),
@@ -40,88 +40,76 @@ import { HttpService } from 'app/services/shared/http.service';
   ],
 
 })
-export class ResultsComponent implements OnInit {
-  public postResponses: Observable<any>;
-  public getResponses: Observable<any>;
+export class ResultsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[];
 
+  public currentGetResponse: any;
+  public currentPostResponse: any;
+
   public postState: string
-  public getInitiated: boolean;
   public imageChosen: boolean;
   private apiResource: string;
-  private data: any;
+  private payload: any;
   public selectedImage: string;
 
 
-  constructor(public appSvc: NeuralNetworkAppService, public http: HttpService) { 
+  constructor(public appSvc: NeuralNetworkAppService, public http: HttpService) {
     this.postState = 'inactive';
-    this.getInitiated = false;
     this.imageChosen = false;
     this.apiResource = "neural-network-app";
     this.subscriptions = [];
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.appSvc.ImageChosenEmitter.subscribe(
+    this.subscriptions.push(this.appSvc.ResultsRenderEmitter.subscribe(
       data => {
-        this.data = {
-          "title": "carousel image",
-          "url": data.src
-        }
-        this.selectedImage = data.src; 
-        this.imageChosen = true;
-        this.apiPost(this.data);
-      }))
+        this.payload = { "title": "carousel image", "url": data.src }
+        this.selectedImage = data.src;
+        this.apiPost(this.payload);
+      }));
+
+    this.subscriptions.push(this.appSvc.PostResponseEmitter.subscribe(
+      response => {
+        this.currentPostResponse = response;
+        this.currentPostResponse['guess1'].confidence = this.prettyConfidence(this.currentPostResponse['guess1'].confidence)
+        this.postState = 'finished';
+      }));
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach( subscription => {
-      if(subscription !== undefined){
+    this.subscriptions.forEach(subscription => {
+      if (subscription !== undefined) {
         subscription.unsubscribe()
       }
-    }) 
+    })
   }
 
   // perform a get request to the flower API
   apiGet() {
-    // clear old get response if any
-    this.appSvc.currentGetResponse = null
-    this.getResponses = this.http.get(this.apiResource);
-    this.subscriptions.push(this.getResponses.subscribe(response => {
-      this.getInitiated = true;
-      this.appSvc.currentGetResponse = response;
-      console.log(response);
-    })) 
+    // clear cached get response first
+    this.currentGetResponse = null;
+    this.appSvc.apiGet(this.apiResource)
   }
 
   // perform a post to the flower API
   apiPost(data: JSON) {
-    // clear old post response if any
-    this.appSvc.currentPostResponse = null
+    // clear cached post response first
+    this.currentPostResponse = null;
     // for animations
-    this.postState = 'waiting'
-
-    this.postResponses = this.http.post(this.apiResource, data);
-    this.subscriptions.push(this.postResponses.subscribe(response => {
-      this.appSvc.currentPostResponse = response;
-      this.appSvc.currentPostResponse.guess1['confidence'] = this.prettyConfidence(this.appSvc.currentPostResponse.guess1['confidence'])
-      this.appSvc.currentPostResponse.guess2['confidence'] = this.prettyConfidence(this.appSvc.currentPostResponse.guess2['confidence'])
-      console.log("http post response: ", response);
-      this.postState = 'finished'
-    })) 
-    
+    this.postState = 'waiting';
+    this.appSvc.apiPost(this.apiResource, data);
   }
 
   // make a confidence score pretty
-  prettyConfidence(score: string){
-    if(score == '1.0')
+  prettyConfidence(score: string) {
+    if (score == '1.0')
       return '100'
     else
       return score.slice(2, 4)
   }
 
-  checkForVowel(){
-    var letter = this.appSvc.currentPostResponse.guess1['category'][0]
+  checkForVowel() {
+    var letter = this.currentPostResponse.guess1['category'][0]
     return ['a', 'e', 'i', 'o', 'u'].includes(letter)
   }
 

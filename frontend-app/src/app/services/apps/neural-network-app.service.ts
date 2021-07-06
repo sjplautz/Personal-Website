@@ -1,23 +1,72 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { HttpService } from '../shared/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NeuralNetworkAppService {
-  ImageChosenEmitter = new Subject<{src: string}>();
-  showImageEmitter = new Subject<{show: string}>();
-  public currentGetResponse: any;
-  public currentPostResponse: any;
+export class NeuralNetworkAppService implements OnInit, OnDestroy {
+  // BehaviorSubjects to avoid late subscriber problem
+  public ResultsRenderEmitter = new BehaviorSubject<any>("");
+  public ImageChosenEmitter = new Subject<{}>();
+  public PostResponseEmitter = new Subject<any>();
+  public GetResponseEmitter = new Subject<any>();
 
-  constructor() { 
+  public postResponses: Observable<any>;
+  public getResponses: Observable<any>;
+  private subscriptions: Subscription[];
+
+  public cachedResultsSubject: any;
+  public hasPost: boolean;
+  public hasGet: boolean;
+
+  constructor(public http: HttpService) {
+    this.hasPost = false;
+    this.hasGet = false;
+    this.subscriptions = [];
   }
 
-  setImageChosen(){
-    this.showImageEmitter.next({show: "show"});
+  onImageSelected(dataUrl: string) {
+    this.ImageChosenEmitter.next({});
+    if(!this.cachedResultsSubject){
+      this.cachedResultsSubject = { src: dataUrl };
+    } 
+    this.ResultsRenderEmitter.next({ src: dataUrl });
   }
 
-  onImageSelected(dataUrl: string){
-    this.ImageChosenEmitter.next({src: dataUrl});
+  // perform a GET request
+  apiGet(apiResource: string) {
+    this.hasGet = false;
+    this.getResponses = this.http.get(apiResource);
+
+    this.subscriptions.push(this.getResponses.subscribe(response => {
+      this.hasGet = true;
+      console.log("GET to:", apiResource, "\nresponse:\n", response);
+      this.GetResponseEmitter.next(response);
+    }))
   }
+
+  // perform a POST request
+  apiPost(apiResource: string, data: JSON) {
+    this.hasPost = false;
+    this.postResponses = this.http.post(apiResource, data);
+
+    this.subscriptions.push(this.postResponses.subscribe(response => {
+      this.hasPost = true;
+      console.log("POST to:", apiResource, "\nresponse:\n", response);
+      this.PostResponseEmitter.next(response);
+    }))
+  }
+
+  ngOnInit(): void{
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => {
+      if (subscription !== undefined) {
+        subscription.unsubscribe()
+      }
+    })
+  }
+
 }

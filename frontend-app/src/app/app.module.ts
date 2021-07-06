@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -74,9 +75,10 @@ import { FeedbackComponent } from './components/pages/projects/neural-network-ap
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule,
   ],
-  providers: [],
+  providers: [Clipboard],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

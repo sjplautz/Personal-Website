@@ -1,3 +1,4 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
 import { ContactMe } from './contact-me.model';
 
@@ -9,11 +10,15 @@ import { ContactMe } from './contact-me.model';
 export class ContactMeComponent implements OnInit {
   contactMe: ContactMe
 
-  constructor() { 
+  constructor(private clipboard: Clipboard) { 
     this.contactMe = new ContactMe()
   }
 
   ngOnInit(): void {
+  }
+
+  handleCopy() {
+    this.clipboard.copy('plautzstephen@gmail.com');
   }
 
 }

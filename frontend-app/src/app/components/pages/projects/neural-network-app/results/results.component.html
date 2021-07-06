@@ -1,5 +1,5 @@
 <!-- api post response: step 2 -->
-<div class="col-12" [@enterTrigger]>
+<div [@enterTrigger]>
 
     <h1 class="mb-5 text-center">2. view results</h1>
 
@@ -16,46 +16,48 @@
     </div>
 
     <!-- response body -->
-    <div *ngIf="appSvc.currentPostResponse" [@waitForPostTrigger]="postState">
+    <div *ngIf="currentPostResponse" [@waitForPostTrigger]="postState">
 
         <div class="container">
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-auto" style="padding-right: 0;">
-                    <h4 *ngIf="checkForVowel()">This is an: </h4>
-                    <h4 *ngIf="!checkForVowel()">This is a: </h4>
+                    <h5 *ngIf="checkForVowel()">This is an: </h5>
+                    <h5 *ngIf="!checkForVowel()">This is a: </h5>
                 </div>
                 <div class="col-auto">
                     <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ appSvc.currentPostResponse.guess1.category }}
+                        {{ currentPostResponse.guess1.category }}
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-auto" style="padding-right: 0;">
-                    <h4>With: </h4>
+                    <h5>With: </h5>
                 </div>
                 <div class="col-auto">
                     <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ appSvc.currentPostResponse.guess1.confidence }}% confidence
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container" *ngIf='appSvc.currentPostResponse.guess2.confidence > 10' [@enterTrigger]>
-            <div class="row">
-                <div class="col-auto" style="padding-right: 0;">
-                    <h4>Next Guess: </h4>
-                </div>
-                <div class="col-auto">
-                    <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ appSvc.currentPostResponse.guess2.category }}
+                        {{ currentPostResponse.guess1.confidence }}% confidence
                     </p>
                 </div>
             </div>
         </div>
 
-        <hr>
+        <div class="container" *ngIf='currentPostResponse.guess2.confidence > 10' [@enterTrigger]>
+            <div class="row">
+                <div class="col-auto" style="padding-right: 0;">
+                    <h5>Next Guess: </h5>
+                </div>
+                <div class="col-auto">
+                    <p style="margin-bottom: 0; margin-top: .15rem;">
+                        {{ currentPostResponse.guess2.category }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <hr>
+        </div>
 
     </div>
 

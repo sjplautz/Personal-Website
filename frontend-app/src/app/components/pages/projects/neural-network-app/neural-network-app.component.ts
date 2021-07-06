@@ -9,27 +9,27 @@ import { Subscription } from 'rxjs';
   providers: [NeuralNetworkAppService],
 })
 export class NeuralNetworkAppComponent implements OnInit, OnDestroy {
-  public imageSelected: string;
-  private subscriptions: Subscription[]; 
-  
+  private subscriptions: Subscription[];
+  public imgChosen: boolean;
 
-  constructor(public appSvc: NeuralNetworkAppService) { 
+  constructor(public appSvc: NeuralNetworkAppService) {
     this.subscriptions = [];
+    this.imgChosen = false;
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.appSvc.showImageEmitter.subscribe(
+    this.subscriptions.push(this.appSvc.ImageChosenEmitter.subscribe(
       data => {
-        this.imageSelected = data.show;
+        this.imgChosen = true;
       }))
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach( subscription => {
-      if(subscription !== undefined){
+    this.subscriptions.forEach(subscription => {
+      if (subscription !== undefined) {
         subscription.unsubscribe()
       }
-    }) 
+    })
   }
-  
+
 }
