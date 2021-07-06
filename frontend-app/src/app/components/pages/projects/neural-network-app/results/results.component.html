@@ -1,0 +1,64 @@
+<!-- api post response: step 2 -->
+<div class="col-12" [@enterTrigger]>
+
+    <h1 class="mb-5 text-center">2. view results</h1>
+
+    <!-- picture -->
+    <div class="col-12">
+        <h5 class="text-center">Image Selected</h5>
+        <img src="{{ selectedImage }}" alt="selected image" class="img-fluid w-100 mb-3 rounded-lg"
+            style="max-height: 150px;">
+    </div>
+
+    <!-- spinner -->
+    <div style="display: flex; justify-content: center;" *ngIf="postState === 'waiting'" [@waitForPostTrigger]>
+        <mat-spinner color='accent' value='5'></mat-spinner>
+    </div>
+
+    <!-- response body -->
+    <div *ngIf="appSvc.currentPostResponse" [@waitForPostTrigger]="postState">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-auto" style="padding-right: 0;">
+                    <h4 *ngIf="checkForVowel()">This is an: </h4>
+                    <h4 *ngIf="!checkForVowel()">This is a: </h4>
+                </div>
+                <div class="col-auto">
+                    <p style="margin-bottom: 0; margin-top: .15rem;">
+                        {{ appSvc.currentPostResponse.guess1.category }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto" style="padding-right: 0;">
+                    <h4>With: </h4>
+                </div>
+                <div class="col-auto">
+                    <p style="margin-bottom: 0; margin-top: .15rem;">
+                        {{ appSvc.currentPostResponse.guess1.confidence }}% confidence
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" *ngIf='appSvc.currentPostResponse.guess2.confidence > 10' [@enterTrigger]>
+            <div class="row">
+                <div class="col-auto" style="padding-right: 0;">
+                    <h4>Next Guess: </h4>
+                </div>
+                <div class="col-auto">
+                    <p style="margin-bottom: 0; margin-top: .15rem;">
+                        {{ appSvc.currentPostResponse.guess2.category }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+    </div>
+
+    <div class="col-12" style="height: 50px;"></div>
+
+</div>

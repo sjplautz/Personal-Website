@@ -1,33 +1,32 @@
-<div class="container col-12 d-none d-md-block">
-    <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
-        [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
-        <ng-template ngbSlide *ngFor="let img of images; index as i">
-            <div class="picsum-img-wrapper">
-                <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail" style="max-height: 12rem; min-height: 12rem;"
-                    appSendContent #img1>
-                <button type="button" class="btn btn-success btn-sm btn-block border border-dark" (click)="onImageSelected(img1)">
-                    select image
-                </button>
-            </div>
-        </ng-template>
-    </ngb-carousel>
-
-    <hr>
+<div class="container col-12 d-none d-md-block mb-5">
+    <h5 class="text-center mt-5">Use Preselected Image</h5>
+        <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
+            [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
+            <ng-template ngbSlide *ngFor="let img of images; index as i">
+                <div class="picsum-img-wrapper">
+                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail"
+                        style="max-height: 12rem; min-height: 12rem;" appSendContent #img1>
+                    <button type="button" class="btn btn-primary btn-block mt-2" (click)="onImageSelected(img1)">
+                        Select Image
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
 </div>
 
-<div class="container col-10 col-sm-6 mb-4 d-md-none">
-    <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
-        [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
-        <ng-template ngbSlide *ngFor="let img of images; index as i">
-            <div class="picsum-img-wrapper">
-                <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail" style="max-height: 10rem; min-height: 10rem;"
-                    appSendContent #img2>
-                <button type="button" class="btn btn-success btn-sm btn-block border border-dark" (click)="onImageSelected(img2)">
-                    select image
-                </button>
-            </div>
-        </ng-template>
-    </ngb-carousel>
-
-    <hr>
+<div class="container col-10 col-sm-6 d-md-none mb-5">
+    <h5 class="text-center mt-4">Use Preselected Image</h5>
+        <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
+            [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
+            <ng-template ngbSlide *ngFor="let img of images; index as i">
+                <div class="picsum-img-wrapper">
+                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail"
+                        style="max-height: 10rem; min-height: 10rem;" appSendContent #img2>
+                    <button type="button" class="btn btn-success btn-sm btn-block border border-dark"
+                        (click)="onImageSelected(img2)">
+                        Select Image
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
 </div>

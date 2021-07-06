@@ -63,6 +63,7 @@ export class ImagePickerComponent implements OnInit {
   async onImageSelected(img: HTMLImageElement) {
     this.dataUrl = this.getBase64Image(img);
     console.log(this.dataUrl)
+    this.appSvc.setImageChosen();
     this.appSvc.onImageSelected(this.dataUrl);
   }
 

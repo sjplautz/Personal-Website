@@ -31,6 +31,10 @@ import { ResizeImagePipe } from './pipes/resize-image.pipe';
 import { NeuralNetworkAppComponent } from './components/pages/projects/neural-network-app/neural-network-app.component';
 import { ImagePickerComponent } from './components/pages/projects/neural-network-app/image-picker/image-picker.component';
 import { UploadImgComponent } from './components/pages/projects/neural-network-app/upload-img/upload-img.component';
+import { FlowerListComponent } from './components/pages/projects/neural-network-app/flower-list/flower-list.component';
+import { FormsModule } from '@angular/forms';
+import { ResultsComponent } from './components/pages/projects/neural-network-app/results/results.component';
+import { FeedbackComponent } from './components/pages/projects/neural-network-app/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,9 @@ import { UploadImgComponent } from './components/pages/projects/neural-network-a
     UploadImgComponent,
     NeuralNetworkAppComponent,
     ImagePickerComponent,
+    FlowerListComponent,
+    ResultsComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,8 @@ import { UploadImgComponent } from './components/pages/projects/neural-network-a
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

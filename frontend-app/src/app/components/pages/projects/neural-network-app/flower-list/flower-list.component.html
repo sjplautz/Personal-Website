@@ -1,0 +1,46 @@
+<div class="container col-12 d-none d-md-block mt-4 mb-5" style="height: 400px; max-height: 500px; overflow-y: auto; overflow-x: hidden;">
+
+    <h6>Search supported flowers:</h6>
+
+    <div class="col-12" >
+    </div>
+    <input id="typeahead-focus" type="text" class="form-control mb-3" [(ngModel)]="model" [ngbTypeahead]="search"
+        (focus)="focus$.next($any($event).target.value)" (click)="click$.next($any($event).target.value)"
+        #instance="ngbTypeahead" />
+
+    <!-- <p>
+        <i>
+            * Only flowers named in this list are supported for classification
+        </i>
+    </p>
+    <hr class="mb-5"> -->
+
+    <!-- Search bar -->
+    <!-- <div class="container">
+        <div class="input-group mb-3" #myDrop="ngbDropdown" ngbDropdown>
+            <input type="text" class="form-control">
+            <div class="input-group-append" role="group">
+                <button (click)="$event.stopPropagation(); myDrop.open();" class="btn btn-outline-success">Hi</button>
+            </div>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button class="dropdown-item">One</button>
+                <button class="dropdown-item">Two</button>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+
+
+<div class="container col-10 col-sm-6 mb-5 d-md-none">
+    <label for="typeahead-focus">Search supported flowers:</label>
+    <input id="typeahead-focus" type="text" class="form-control mb-3" [(ngModel)]="model" [ngbTypeahead]="search"
+        (focus)="focus$.next($any($event).target.value)" (click)="click$.next($any($event).target.value)"
+        #instance="ngbTypeahead" />
+    <p>
+        <i>
+            * Only flowers named in this list are supported for classification
+        </i>
+    </p>
+    <hr class="mb-5">
+</div>
