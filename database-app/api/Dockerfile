@@ -1,4 +1,4 @@
-FROM mongo
+FROM ubuntu
 
 RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip
 COPY requirements.txt /tmp/requirements.txt
@@ -12,6 +12,6 @@ WORKDIR /app
 EXPOSE 8080
 
 #############################################
-ENTRYPOINT ["python3", "api.py", "debug"]
+# ENTRYPOINT ["python3", "api.py", "debug"]
 
-# ENTRYPOINT ["python3", "api.py"] 
+ENTRYPOINT ["python3", "api.py"] 

@@ -66,7 +66,6 @@ class Database(Resource):
         return msg.json(), 200
 
 api.add_resource(NeuralNetwork, '/neural-network-app')
-# database has resources for every app it serves
 api.add_resource(Database, '/database/<string:resource>')
 
 if __name__ == '__main__':
