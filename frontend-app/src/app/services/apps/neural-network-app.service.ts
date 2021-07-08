@@ -17,11 +17,11 @@ export class NeuralNetworkAppService implements OnInit, OnDestroy {
   private subscriptions: Subscription[];
 
   public cachedResultsSubject: any;
-  public hasPost: boolean;
+  public hasPrediction: boolean;
   public hasGet: boolean;
 
   constructor(public http: HttpService) {
-    this.hasPost = false;
+    this.hasPrediction = false;
     this.hasGet = false;
     this.subscriptions = [];
   }
@@ -48,11 +48,13 @@ export class NeuralNetworkAppService implements OnInit, OnDestroy {
 
   // perform a POST request
   apiPost(apiResource: string, data: JSON) {
-    this.hasPost = false;
+    // has the intended side effect of de-rendering feedback section upon submission
+    this.hasPrediction = false;
     this.postResponses = this.http.post(apiResource, data);
 
     this.subscriptions.push(this.postResponses.subscribe(response => {
-      this.hasPost = true;
+      if(apiResource == "neural-network-app")
+        this.hasPrediction = true;
       console.log("POST to:", apiResource, "\nresponse:\n", response);
       this.PostResponseEmitter.next(response);
     }))

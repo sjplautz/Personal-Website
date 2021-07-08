@@ -44,10 +44,34 @@ class NeuralNetwork(Resource):
             
         return msg.json(), 200
 
+class Database(Resource):
+    def __init__(self, api, *args, **kwargs):
+        super().__init__(api=api, *args, **kwargs)
+        self.debug = DEBUG
+
+    def get(self, resource):
+        if(self.debug):
+            msg = requests.get(("http://0.0.0.0:8080/" + resource))
+        else:
+            msg = requests.get(("http://database-svc.default.svc.cluster.local/" + resource))
+
+        return msg.json(), 200
+    
+    def post(self, resource):
+        if(self.debug):
+            msg = requests.post(("http://0.0.0.0:8080/" + resource), json=request.get_json())
+        else:
+            msg = requests.post(("http://database-svc.default.svc.cluster.local/" + resource), json=request.get_json())
+
+        return msg.json(), 200
+
 api.add_resource(NeuralNetwork, '/neural-network-app')
+# database has resources for every app it serves
+api.add_resource(Database, '/database/<string:resource>')
 
 if __name__ == '__main__':
+    # remember to prepend API_BASE /backend to routes for debug mode requests
     if(DEBUG):
-        app.run(host='0.0.0.0', port='6969', debug=True)
+        app.run(host='0.0.0.0', port='9090', debug=True)
     else:
         app.run(host='0.0.0.0', port='80')

@@ -36,6 +36,7 @@ import { FlowerListComponent } from './components/pages/projects/neural-network-
 import { FormsModule } from '@angular/forms';
 import { ResultsComponent } from './components/pages/projects/neural-network-app/results/results.component';
 import { FeedbackComponent } from './components/pages/projects/neural-network-app/feedback/feedback.component';
+import { AccuracyComponent } from './components/pages/projects/neural-network-app/accuracy/accuracy.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { FeedbackComponent } from './components/pages/projects/neural-network-ap
     FlowerListComponent,
     ResultsComponent,
     FeedbackComponent,
+    AccuracyComponent,
   ],
   imports: [
     BrowserModule,

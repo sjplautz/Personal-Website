@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+    test-api-svc:
+        build: ./api
+        container_name: test-api
+        ports:
+            - "8080:8080"
+        links:
+            - test-db-svc
+        depends_on: 
+            - test-db-svc
+
+    test-db-svc:
+        build: ./database
+        hostname: test-db
+        container_name: test-db
+        ports:
+            - "27017:27017"
