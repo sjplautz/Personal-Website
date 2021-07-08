@@ -12,7 +12,8 @@ DEBUG = (len(sys.argv) > 1)
 if(DEBUG):
     MONGO_HOST = "test-db"
 else:
-    MONGO_HOST = "database-svc.default.svc.cluster.local"
+    # due to shared pod, localhost is same host
+    MONGO_HOST = "localhost"
 USER_NAME = 'admin-user'
 PASSWD = 'admin-password'
 MONGO_PORT = 27017
