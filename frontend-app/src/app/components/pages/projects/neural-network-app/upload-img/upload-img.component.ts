@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app.service';
+import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app/neural-network-app.service';
 
 @Component({
   selector: 'app-upload-img',

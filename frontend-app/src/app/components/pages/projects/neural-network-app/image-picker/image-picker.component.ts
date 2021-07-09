@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
-import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app.service';
+import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app/neural-network-app.service';
 
 @Component({
   selector: 'app-image-picker',

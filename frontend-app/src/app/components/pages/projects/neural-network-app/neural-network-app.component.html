@@ -3,11 +3,14 @@
     <div class="col-12" style="height: 25px;"></div>
 
     <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <app-accuracy *ngIf="appSvc.accuracy"></app-accuracy>
+        </div>
+
         <div class="row mb-4 justify-content-center">
 
             <div class="col-12 col-md-3">
                 <app-flower-list></app-flower-list>
-                <app-accuracy></app-accuracy>
             </div>
 
             <!-- image upload: step 1 -->
@@ -20,12 +23,12 @@
 
 
             <!-- result output: step 2 -->
-            <div class="col-12 col-md-3" *ngIf="imgChosen">
+            <div class="col-12 col-md-3" *ngIf="renderResults" [@leaveTrigger]>
                 <app-results></app-results>
             </div>
 
             <!-- feedback: step 3 -->
-            <div class="col-12 col-md-3" *ngIf="appSvc.hasPrediction">
+            <div class="col-12 col-md-3" *ngIf="renderFeedback" [@leaveTrigger]>
                 <app-feedback></app-feedback>
             </div>
 

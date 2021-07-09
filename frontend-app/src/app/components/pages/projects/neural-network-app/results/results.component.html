@@ -6,12 +6,12 @@
     <!-- picture -->
     <div class="col-12">
         <h5 class="text-center">Image Selected</h5>
-        <img src="{{ selectedImage }}" alt="selected image" class="img-fluid w-100 mb-3 rounded-lg"
+        <img src="{{ appSvc.selectedImg }}" alt="selected image" class="img-fluid w-100 mb-3 rounded-lg"
             style="max-height: 150px;">
     </div>
 
     <!-- spinner -->
-    <div style="display: flex; justify-content: center;" *ngIf="postState === 'waiting'" [@waitForPostTrigger]>
+    <div style="display: flex; justify-content: center;" *ngIf="appSvc.resultsLoading" [@waitForPostTrigger]>
         <mat-spinner color='accent' value='5'></mat-spinner>
     </div>
 
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-auto">
                     <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ currentPostResponse.guess1.confidence }}% confidence
+                        {{ currentPostResponse.guess1.confidence | percent }} confidence
                     </p>
                 </div>
             </div>
