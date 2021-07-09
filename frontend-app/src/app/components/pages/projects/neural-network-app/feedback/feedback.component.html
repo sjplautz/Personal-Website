@@ -10,7 +10,7 @@
     <!-- feedback buttons -->
     <div>
 
-        <div class="container">
+        <div class="container d-none d-lg-block">
             <div class="row" style="display: flex; justify-content: center;">
                 <div class="col-auto" style="padding-right: 0;">
                     <button type="button" class="btn btn-success btn-lg" (click)="handleFeedback(true)">
@@ -19,6 +19,21 @@
                 </div>
                 <div class="col-auto">
                     <button type="button" class="btn btn-danger btn-lg" (click)="handleFeedback(false)">
+                        no
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-lg-none">
+            <div class="row" style="display: flex; justify-content: center;">
+                <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+                    <button type="button" class="btn btn-success" (click)="handleFeedback(true)">
+                        yes
+                    </button>
+                </div>
+                <div class="col-auto" style="padding-right: 0;">
+                    <button type="button" class="btn btn-danger" (click)="handleFeedback(false)">
                         no
                     </button>
                 </div>

@@ -1,14 +1,16 @@
 <div class="container d-none d-md-block">
-    <div class="row justify-content-center">
+    <div class="row">
         <h1>Accuracy: {{this.accuracy | percent:'1.0-1'}}</h1>
     </div>
-    <div class="row">
-        <div class="col-6" appHighlightChangedItem>
-            <p >correct: {{appSvc.accuracy.correct}} </p>
-        </div>
-        <div class="col-6" appHighlightChangedItem>
-            <p >incorrect: {{appSvc.accuracy.incorrect}}</p>
-        </div>
+    <div class="row justify-content-center">
+        <p style="padding-right: 5px;">correct: </p>
+        <h5>
+            <p>{{appSvc.accuracy.correct}}</p>
+        </h5>
+        <p style="padding-left: 10px; padding-right: 5px;">incorrect:</p>
+        <h5>
+            <p>{{appSvc.accuracy.incorrect}}</p>
+        </h5>
     </div>
 </div>
 
@@ -16,10 +18,12 @@
     <div class="row justify-content-center">
         <h1>Accuracy: {{this.accuracy | percent:'1.0-1'}}</h1>
     </div>
-    <div class="row">
-        <p>correct: {{appSvc.accuracy.correct}} </p>
-    </div>
-    <div class="row">
-        <p>incorrect: {{appSvc.accuracy.incorrect}}</p>
+    <div class="row justify-content-center">
+        <p>
+            correct: {{appSvc.accuracy.correct}}
+        </p>
+        <p style="padding-left: 10px;">
+            incorrect: {{appSvc.accuracy.incorrect}}
+        </p>
     </div>
 </div>
