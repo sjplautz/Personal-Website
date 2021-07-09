@@ -1,6 +1,7 @@
 import requests
 import logging
 import sys
+import json
 from flask import Flask, request
 from flask_restx import Api, Resource 
 from flask_cors import CORS
@@ -34,7 +35,9 @@ class NeuralNetwork(Resource):
         else:
             msg = requests.get("http://neuralnetwork-svc.default.svc.cluster.local/api")
 
-        return msg.json(), 200
+        response = msg.json()
+        response.update({"topic" : 'neural-network-app'})
+        return response, 200
     
     def post(self):
         if(self.debug):
@@ -42,7 +45,9 @@ class NeuralNetwork(Resource):
         else:
             msg = requests.post("http://neuralnetwork-svc.default.svc.cluster.local/api", json=request.get_json())
             
-        return msg.json(), 200
+        response = msg.json()
+        response.update({"topic" : 'neural-network-app'})
+        return response, 200
 
 class Database(Resource):
     def __init__(self, api, *args, **kwargs):
@@ -55,7 +60,9 @@ class Database(Resource):
         else:
             msg = requests.get(("http://database-svc.default.svc.cluster.local/" + resource))
 
-        return msg.json(), 200
+        response = msg.json()
+        response.update({"topic" : ('database/' + resource)})
+        return response, 200
     
     def post(self, resource):
         if(self.debug):
@@ -63,7 +70,9 @@ class Database(Resource):
         else:
             msg = requests.post(("http://database-svc.default.svc.cluster.local/" + resource), json=request.get_json())
 
-        return msg.json(), 200
+        response = msg.json()
+        response.update({"topic" : ('database/' + resource)})
+        return response, 200
 
 api.add_resource(NeuralNetwork, '/neural-network-app')
 api.add_resource(Database, '/database/<string:resource>')
