@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app/neural-network-app.service';
 
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './accuracy.component.html',
   styleUrls: ['./accuracy.component.scss']
 })
-export class AccuracyComponent implements OnInit, OnDestroy {
+export class AccuracyComponent implements OnInit, OnDestroy, OnChanges {
   private subscriptions: Subscription[];
   public accuracy: Number;
 
@@ -20,7 +20,7 @@ export class AccuracyComponent implements OnInit, OnDestroy {
     this.accuracy = (this.appSvc.accuracy["correct"] / (this.appSvc.accuracy["correct"] + this.appSvc.accuracy["incorrect"]))
   }
 
-  ngOnChange(): void {
+  ngOnChanges(): void {
     return;
   }
 

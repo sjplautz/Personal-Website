@@ -17,17 +17,12 @@ import { AboutMeComponent } from './components/pages/home/about-me/about-me.comp
 import { BodyPageComponent } from './components/shared/body-page/body-page.component';
 import { BodyItemComponent } from './components/shared/body-item/body-item.component';
 import { ListItemComponent } from './components/shared/list-item/list-item.component';
-import { HighlightDirective } from './directives/highlight-directive';
 import { BetterHighlightDirective } from './directives/better-highlight.directive';
-import { DropdownDirective } from './directives/dropdown.directive';
 import { DropdownComponent } from './components/shared/dropdown/dropdown.component';
-import { PullRightDirective } from './directives/pull-right.directive';
-import { PullLeftDirective } from './directives/pull-left.directive';
 import { ProjectsComponent } from './components/pages/projects/projects.component';
 import { ContactMeComponent } from './components/pages/contact-me/contact-me.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppPageComponent } from './components/shared/app-page/app-page.component';
-import { SendContent } from './directives/send-content.directive';
 import { ResizeImagePipe } from './pipes/resize-image.pipe';
 import { NeuralNetworkAppComponent } from './components/pages/projects/neural-network-app/neural-network-app.component';
 import { ImagePickerComponent } from './components/pages/projects/neural-network-app/image-picker/image-picker.component';
@@ -37,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { ResultsComponent } from './components/pages/projects/neural-network-app/results/results.component';
 import { FeedbackComponent } from './components/pages/projects/neural-network-app/feedback/feedback.component';
 import { AccuracyComponent } from './components/pages/projects/neural-network-app/accuracy/accuracy.component';
+import { HighlightChangedItemDirective } from './directives/highlight-changed-item.directive';
 
 @NgModule({
   declarations: [
@@ -46,21 +42,16 @@ import { AccuracyComponent } from './components/pages/projects/neural-network-ap
     MediaBodyComponent,
     ProjectsListComponent,
     ProjectComponent,
+    ProjectsComponent,
     HomeComponent,
     AboutMeComponent,
     BodyPageComponent,
     BodyItemComponent,
     ListItemComponent,
-    HighlightDirective,
     BetterHighlightDirective,
-    DropdownDirective,
     DropdownComponent,
-    PullRightDirective,
-    PullLeftDirective,
-    ProjectsComponent,
     ContactMeComponent,
     AppPageComponent,
-    SendContent,
     ResizeImagePipe,
     UploadImgComponent,
     NeuralNetworkAppComponent,
@@ -69,6 +60,7 @@ import { AccuracyComponent } from './components/pages/projects/neural-network-ap
     ResultsComponent,
     FeedbackComponent,
     AccuracyComponent,
+    HighlightChangedItemDirective,
   ],
   imports: [
     BrowserModule,

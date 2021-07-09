@@ -25,6 +25,7 @@ export class NeuralNetworkDbService {
         if(response.topic == this.apiResource){
           this.PostResponseEmitter.next(response)
           this.apiSvc.apiGet(this.apiResource)
+          // add hook to trigger animation for changed value here
         }
       }
     ));
