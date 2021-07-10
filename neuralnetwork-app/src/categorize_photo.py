@@ -10,8 +10,15 @@ else:
     
 MODEL_NAME = "nn_model"
 
-def categorize_image(image):
-    model = load_model(MODEL_PATH, MODEL_NAME)
+# loads the model into memory
+def get_model():
+    return load_model(MODEL_PATH, MODEL_NAME)
+
+def load_model(modelPath, modelName):
+    model = tf.keras.models.load_model(modelPath + modelName, compile=True)
+    return model
+
+def categorize_image(image, model):
     result = model.predict(image)
 
     d = {}
@@ -26,7 +33,3 @@ def categorize_image(image):
     label2nd = labels[d[str(score2nd)]]
 
     return (label1st, round(score1st, 3)), (label2nd, round(score2nd, 3))
-
-def load_model(modelPath, modelName):
-    model = tf.keras.models.load_model(modelPath + modelName, compile=True)
-    return model

@@ -34,6 +34,8 @@ api.add_resource(Base, '/api')
 
 if __name__ == '__main__':
     if(DEBUG):
+        image_module.preload_model()
         app.run(host='0.0.0.0', port='8080', debug=True)
     else:
+        image_module.preload_model()
         app.run(host="0.0.0.0", port='80')

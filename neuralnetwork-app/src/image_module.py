@@ -9,6 +9,10 @@ IMAGE_HEADER = "data:image/jpeg;base64,"
 IMG_SIZE = 299
 
 
+def preload_model():
+    global nn_model
+    nn_model = categorize_photo.get_model() 
+
 def handlePost(post_content):
     # get an image handle that cv2 can operate on
     img = b64_string_to_img(post_content['url'])
@@ -17,7 +21,7 @@ def handlePost(post_content):
     img = transform_image(img)
     
     # predict the category of the photo usign the nn
-    first_guess, second_guess = categorize_photo.categorize_image(img)
+    first_guess, second_guess = categorize_photo.categorize_image(img, nn_model)
 
     # construct the response
     response = {
