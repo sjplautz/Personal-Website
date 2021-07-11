@@ -3,8 +3,8 @@ import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
-import { labels } from './classes-sorted';
-const flowers = labels;
+// import { states } from './states';
+import { flowers } from './flowers';
 
 @Component({
   selector: 'app-flower-list',
@@ -18,18 +18,18 @@ export class FlowerListComponent implements OnInit {
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
+  search: OperatorFunction<string, readonly { name, img }[]> = (text$: Observable<string>) =>{
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
     const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term => (term === '' ? flowers
-        : flowers.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)))
-    );
+      map(term => term === '' ? flowers
+        : flowers.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)))
   }
 
-  ngOnInit(): void {
-  }
+  formatter = (x: { name: string }) => x.name;
+
+  ngOnInit(): void { }
 
 }

@@ -2,9 +2,14 @@
 
     <h6>Search supported flowers:</h6>
 
-    <input id="typeahead-focus" type="text" class="form-control mb-3" [(ngModel)]="model" [ngbTypeahead]="search"
-        (focus)="focus$.next($any($event).target.value)" (click)="click$.next($any($event).target.value)"
-        #instance="ngbTypeahead" />
+    <ng-template #rt let-r="result" let-t="term">
+        <img [src]="r.img" class="mr-1" style="width: 44px">
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+    </ng-template>
+
+    <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
+        [resultTemplate]="rt" [inputFormatter]="formatter" (focus)="focus$.next($any($event).target.value)"
+        (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
 
     <p>
         <i>
@@ -12,15 +17,23 @@
         </i>
     </p>
     <hr class="mb-5">
-    
+
 </div>
 
 
 <div class="container col-10 col-sm-6 mb-5 d-md-none">
-    <label for="typeahead-focus">Search supported flowers:</label>
-    <input id="typeahead-focus" type="text" class="form-control mb-3" [(ngModel)]="model" [ngbTypeahead]="search"
-        (focus)="focus$.next($any($event).target.value)" (click)="click$.next($any($event).target.value)"
-        #instance="ngbTypeahead" />
+
+    <h6>Search supported flowers:</h6>
+
+    <ng-template #rt let-r="result" let-t="term">
+        <img [src]="r.img" class="mr-1" style="width: 44px">
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+    </ng-template>
+
+    <input class="mb-3" id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
+        [resultTemplate]="rt" [inputFormatter]="formatter" (focus)="focus$.next($any($event).target.value)"
+        (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+
     <p>
         <i>
             * Only flowers named in this list are supported for classification
