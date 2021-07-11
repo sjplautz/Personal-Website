@@ -22,7 +22,36 @@
 ngb-typeahead-window {
     max-height: 50vh !important;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.dropdown-wrapper {
+    .dropdown-menu {
+        width: 100%;
+    }
+    .dropdown-item {
+        padding-left: 0.35rem;
+        padding-right: 0.4rem;
+        white-space: normal;
+    }
+}
+
+.dropdown-wrapper-2 {
+    .dropdown-menu {
+        width: 85%;
+    }
+    .dropdown-item {
+        padding-left: 0.35rem;
+        padding-right: 0.4rem;
+        white-space: normal;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
