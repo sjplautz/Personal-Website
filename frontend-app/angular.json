@@ -8,6 +8,10 @@
       "schematics": {
         "@schematics/angular:application": {
           "strict": false
+        },
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
         }
       },
       "root": "",
