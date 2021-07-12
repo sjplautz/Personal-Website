@@ -3,8 +3,9 @@
     <h6>Search supported flowers:</h6>
 
     <ng-template #rt let-r="result" let-t="term">
-        <div class="row">
-            <img [src]="r.img" class="mr-1" style="margin-left: .25rem; padding-left: 10px; width: 48px; height: 48px;">
+        <div class="row" (click)="onFlowerClicked(img1)" (keydown.enter)="onFlowerClicked(img1)">
+            <img [src]="r.img" class="mr-1" style="margin-left: .25rem; padding-left: 10px; width: 48px; height: 48px;"
+                appSendContent #img1>
             <div class="col-8"
                 style="margin-right: 0px; padding-right: 0; padding-left: 5px; display: flex; align-items: center;">
                 <ngb-highlight style="flex-wrap: wrap; overflow-wrap: break-word;" [result]="r.name" [term]="t">
@@ -15,13 +16,18 @@
 
     <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
         [resultTemplate]="rt" [inputFormatter]="formatter" (focus)="focus$.next($any($event).target.value)"
-        (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+        (click)="click$.next($any($event).target.value);" #instance="ngbTypeahead" />
 
     <p class="mt-3">
         <i>
             * Only flowers named in this list are supported for classification
         </i>
     </p>
+
+    <div class="col-12 div-wrapper">
+        <img [src]="imgSrc" class="img-wrapper" alt="" *ngIf="imgSrc">
+    </div>
+
     <hr class="mb-5">
 
 </div>

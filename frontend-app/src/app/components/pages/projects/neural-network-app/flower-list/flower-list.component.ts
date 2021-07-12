@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app/neural-network-app.service';
 import { Observable, Subject, merge, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
@@ -13,23 +15,64 @@ import { flowers } from './flowers';
 })
 export class FlowerListComponent implements OnInit {
   model: any;
+  public imgSrc: any;
+  public dataURL: any;
+
+  constructor(private appSvc: NeuralNetworkAppService, private sanitizer: DomSanitizer) {
+    this.imgSrc = "";
+  }
+
+  ngOnInit(): void { }
 
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
-  search: OperatorFunction<string, readonly { name, img }[]> = (text$: Observable<string>) =>{
+  search: OperatorFunction<string, readonly { name, img }[]> = (text$: Observable<string>) => {
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
     const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
       map(term => term === '' ? flowers
-        : flowers.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)))
+        : flowers.filter(v => v.name.toLowerCase().slice(0, term.length) === term)))
   }
 
   formatter = (x: { name: string }) => x.name;
 
-  ngOnInit(): void { }
+  onFlowerClicked(img: HTMLImageElement) {
+    var temp = img.src.split("/")
+    var flowerType = temp[temp.length - 1].split('.')[0]
+
+    var imgURL = "/assets/flowers-2/" + flowerType + ".jpeg"
+    console.log("imgURL: \n", imgURL)
+
+
+    this.imgSrc = imgURL;
+
+    this.getBase64ImageFromUrl(imgURL)
+      .then(value => {
+        var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
+        this.appSvc.onSearchUrlSelected(sanitizedDataURL);
+      })
+
+  }
+
+  async getBase64ImageFromUrl(imageUrl) {
+    var res = await fetch(imageUrl);
+    var blob = await res.blob();
+  
+    return new Promise((resolve, reject) => {
+      var reader  = new FileReader();
+      reader.addEventListener("load", function () {
+          resolve(reader.result);
+      }, false);
+  
+      reader.onerror = () => {
+        return reject(this);
+      };
+      reader.readAsDataURL(blob);
+    })
+  }
 
 }

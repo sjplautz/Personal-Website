@@ -1,0 +1,14 @@
+@use "../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+.img-wrapper {
+    @extend .mb-3;
+    @extend .img-fluid;
+    @extend .rounded-lg;
+    max-height: 150px;
+}
+
+.div-wrapper {
+    display: flex;
+    justify-content: center;
+}

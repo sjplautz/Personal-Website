@@ -1,14 +1,18 @@
 <!-- api post response: step 2 -->
 <div [@enterTrigger]>
 
-    <h1 class="mb-5 text-center">2. view results</h1>
+    <h1 class="mb-5 text-center" style="margin-right: 20px;">2. view results</h1>
+
+    <div class="row div-wrapper">
+        <h5 class="text-center">Image Selected</h5>
+    </div>
 
     <!-- picture -->
-    <div class="col-12">
-        <h5 class="text-center">Image Selected</h5>
-        <img src="{{ appSvc.selectedImg }}" alt="selected image" class="img-fluid w-100 mb-3 rounded-lg"
-            style="max-height: 150px;">
+    <div class="row div-wrapper">
+        <img [src]="appSvc.selectedImg" alt="selected image" class="mb-3 img-fluid rounded-lg"
+            style="max-height: 150px; width: 100;">
     </div>
+
 
     <!-- spinner -->
     <div style="display: flex; justify-content: center;" *ngIf="appSvc.resultsLoading" [@waitForPostTrigger]>
@@ -18,31 +22,26 @@
     <!-- response body -->
     <div *ngIf="currentPostResponse" [@waitForPostTrigger]="postState">
 
-        <div class="container">
-            <div class="row mb-2">
-                <div class="col-auto" style="padding-right: 0;">
-                    <h5 *ngIf="checkForVowel()">This is an: </h5>
-                    <h5 *ngIf="!checkForVowel()">This is a: </h5>
-                </div>
-                <div class="col-auto">
-                    <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ currentPostResponse.guess1.category }}
-                    </p>
-                </div>
+        <div class="container mt-5">
+            <div class="row div-wrapper">
+                <h5 *ngIf="checkForVowel()">This is an: </h5>
+                <h5 *ngIf="!checkForVowel()">This is a: </h5>
+                <p style="margin-left: 10px;">
+                    {{ currentPostResponse.guess1.category }}
+                </p>
             </div>
-            <div class="row">
-                <div class="col-auto" style="padding-right: 0;">
-                    <h5>With: </h5>
-                </div>
-                <div class="col-auto">
-                    <p style="margin-bottom: 0; margin-top: .15rem;">
-                        {{ currentPostResponse.guess1.confidence | percent }} confidence
-                    </p>
-                </div>
+            <div class="row div-wrapper">
+                <img [src]="appSvc.predictedImg" class="img-wrapper" alt="">
+            </div>
+            <div class="row mt-1 mb-2 div-wrapper">
+                <h5>With: </h5>
+                <p style="margin-left: 10px">
+                    {{ currentPostResponse.guess1.confidence | percent }} confidence
+                </p>
             </div>
         </div>
 
-        <div class="container" *ngIf='currentPostResponse.guess2.confidence > 10' [@enterTrigger]>
+        <div class="container" *ngIf='currentPostResponse.guess2.confidence > .10' [@enterTrigger]>
             <div class="row">
                 <div class="col-auto" style="padding-right: 0;">
                     <h5>Next Guess: </h5>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Subject, Subscription } from 'rxjs';
 import { NeuralNetworkApiService } from './neural-network-api.service';
 import { NeuralNetworkDbService } from './neural-network-db.service';
@@ -11,7 +12,8 @@ export class NeuralNetworkAppService {
 
   // globally accessed properties
   public accuracy: any;
-  public selectedImg: string;
+  public selectedImg: any;
+  public predictedImg: string;
   public resultsLoading: boolean;
 
   public RenderResultsEmitter = new Subject<{}>();
@@ -23,6 +25,7 @@ export class NeuralNetworkAppService {
 
   constructor(public apiSvc: NeuralNetworkApiService, public dbSvc: NeuralNetworkDbService) { 
     this.selectedImg = "";
+    this.predictedImg = "";
     this.resultsLoading = true;
     this.subscriptions = [];
     this.init()
@@ -55,12 +58,28 @@ export class NeuralNetworkAppService {
     this.apiSvc.apiPost(JSON.parse(payload))
   }
 
+  onSearchUrlSelected(safeUrl: SafeUrl) {
+    this.selectedImg = safeUrl;
+    this.resultsLoading = true;
+    this.RenderResultsEmitter.next();
+
+    var payload = JSON.stringify({ "url" : safeUrl['changingThisBreaksApplicationSecurity'] })
+    this.apiSvc.apiPost(JSON.parse(payload))
+  }
+
   onResultsReceived(data: JSON){
+    this.predictedImg = this.getPredictedImg(data)
     this.resultsLoading = false;
     // show the results in subscribed components
     this.ShowResultsEmitter.next(data)
     // render the feedback component
     this.RenderFeedbackEmitter.next();
+  }
+
+  getPredictedImg(data: JSON){
+    var category = data['guess1']['category']
+    var flowerImg = category.replace(' ', "_") + ".jpeg";
+    return "/assets/flowers-2/" + flowerImg;
   }
 
   async onFeedbackSubmitted(result: string){
