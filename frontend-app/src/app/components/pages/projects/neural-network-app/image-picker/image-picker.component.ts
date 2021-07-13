@@ -33,7 +33,7 @@ export class ImagePickerComponent implements OnInit {
   }
 
   loadImages() {
-    let num_photos = 11;
+    let num_photos = 15;
     let photos = [];
     for (let i = 0; i < num_photos; i++) {
       photos.push(this.imagePath + i + this.imageExtension);

@@ -62,7 +62,7 @@ export const flowers: {name: string, img: string}[]= [
     { 'name': 'monkshood', 'img': '/assets/flower-thumbnails/monkshood.jpg' },
     { 'name': 'moon orchid', 'img': '/assets/flower-thumbnails/moon_orchid.jpg' },
     { 'name': 'morning glory', 'img': '/assets/flower-thumbnails/morning_glory.jpg' },
-    // { 'name': 'orange dahlia', 'img': '/assets/flower-thumbnails/orange_dahlia.jpg' },
+    { 'name': 'orange dahlia', 'img': '/assets/flower-thumbnails/orange_dahlia.jpg' },
     { 'name': 'osteospermum', 'img': '/assets/flower-thumbnails/osteospermum.jpg' },
     { 'name': 'oxeye daisy', 'img': '/assets/flower-thumbnails/oxeye_daisy.jpg' },
     { 'name': 'passion flower', 'img': '/assets/flower-thumbnails/passion_flower.jpg' },

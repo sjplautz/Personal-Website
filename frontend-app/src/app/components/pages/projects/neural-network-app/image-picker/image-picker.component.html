@@ -4,7 +4,7 @@
             [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
             <ng-template ngbSlide *ngFor="let img of images; index as i">
                 <div class="picsum-img-wrapper">
-                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail"
+                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 rounded-lg"
                         style="max-height: 12rem; min-height: 12rem;" appSendContent #img1>
                     <button type="button" class="btn btn-primary btn-block mt-2" (click)="onImageSelected(img1)">
                         Select Image
@@ -20,7 +20,7 @@
             [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
             <ng-template ngbSlide *ngFor="let img of images; index as i">
                 <div class="picsum-img-wrapper">
-                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 img-thumbnail"
+                    <img [src]="img" alt="My image {{i + 1}} description" class="img-fluid w-100 rounded-lg"
                         style="max-height: 10rem; min-height: 10rem;" appSendContent #img2>
                     <button type="button" class="btn btn-success btn-sm btn-block border border-dark"
                         (click)="onImageSelected(img2)">
