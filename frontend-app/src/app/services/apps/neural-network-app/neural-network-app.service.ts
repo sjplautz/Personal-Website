@@ -78,7 +78,7 @@ export class NeuralNetworkAppService {
 
   getPredictedImg(data: JSON){
     var category = data['guess1']['category']
-    var flowerImg = category.replace(' ', "_") + ".jpeg";
+    var flowerImg = category.replaceAll(' ', "_") + ".jpeg";
     return "/assets/flowers-2/" + flowerImg;
   }
 
