@@ -17,6 +17,8 @@ export class FlowerListComponent implements OnInit {
   model: any;
   public imgSrc: any;
   public dataURL: any;
+  public imgUrl;
+  public flowerName: string;
 
   constructor(private appSvc: NeuralNetworkAppService, private sanitizer: DomSanitizer) {
     this.imgSrc = "";
@@ -40,22 +42,25 @@ export class FlowerListComponent implements OnInit {
 
   formatter = (x: { name: string }) => x.name;
 
-  onFlowerClicked(img: HTMLImageElement) {
-    var temp = img.src.split("/")
+  onSelect($event, input){
+    // clears the search bar after a selection 
+    $event.preventDefault();
+    input.value = '';
+
+    var img = $event.item.img;
+    var temp = img.split("/");
     var flowerType = temp[temp.length - 1].split('.')[0]
+    this.imgSrc = "/assets/flowers-2/" + flowerType + ".jpeg"
+    this.flowerName = $event.item.name;
+    console.log("generated image source:", this.imgSrc)
+  }
 
-    var imgURL = "/assets/flowers-2/" + flowerType + ".jpeg"
-    console.log("imgURL: \n", imgURL)
-
-
-    this.imgSrc = imgURL;
-
-    this.getBase64ImageFromUrl(imgURL)
+  onFlowerSelected(){
+      this.getBase64ImageFromUrl(this.imgSrc)
       .then(value => {
         var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
         this.appSvc.onSearchUrlSelected(sanitizedDataURL);
       })
-
   }
 
   async getBase64ImageFromUrl(imageUrl) {
