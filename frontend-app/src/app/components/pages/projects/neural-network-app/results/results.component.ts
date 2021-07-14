@@ -51,7 +51,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.appSvc.ShowResultsEmitter.subscribe(
       response => {
         this.currentPostResponse = response;
-        setTimeout(() => {this.elRef.nativeElement.scrollIntoView({behavior: "smooth"});}, 300);
+        if(window.innerWidth < 755)
+          setTimeout(() => {this.elRef.nativeElement.scrollIntoView({behavior: "smooth"});}, 300);
       }));
   }
 

@@ -15,8 +15,8 @@ export class ImagePickerComponent implements OnInit {
   paused = false;
   unpauseOnArrow = false;
   pauseOnIndicator = false;
-  pauseOnHover = true;
-  pauseOnFocus = true;
+  pauseOnHover = false;
+  pauseOnFocus = false;
   showNavigationIndicators = false;
 
   public slides: any;
@@ -36,24 +36,8 @@ export class ImagePickerComponent implements OnInit {
     this.imgSrc = this.imgPath + "0" + this.imgExtension;
   }
 
-  togglePaused() {
-    if (this.paused) {
-      this.carousel.cycle();
-    } else {
-      this.carousel.pause();
-    }
-    this.paused = !this.paused;
-  }
-
   onSlide(slideEvent: NgbSlideEvent) {
     this.imgSrc = this.imgPath + slideEvent.current + this.imgExtension;
-    if (this.unpauseOnArrow && slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
-      this.togglePaused();
-    }
-    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
-      this.togglePaused();
-    }
   }
 
   onImageSelected() {

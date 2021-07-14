@@ -1,28 +1,121 @@
-<div class="container">
-    <h5>Website Description</h5>
-    <p> 
-        My name is Stephen, and this is my website.
-        I have a few projects that I wanted people to be able to play with, and decided I needed a place to publish them.
-        I figured it was a good opportunity to challenge myself and grow my skill-set as a software engineer, and boy
-        was I right. While some facets are bare-bones at the moment, there is much more to come.
-    </p>
+<div class="col-12" style="padding-right: 0;">
+    <h3>
+        Home
+    </h3>
+    <hr>
+</div>
+
+<div class="row d-none d-sm-block">
+
+    <div class="col-7">
+
+        <div class="container col-12">
+            <h5 class="mt-0">About me</h5>
+            <p>
+                My name is Stephen, and this is my website.
+                Here are some things you should know about me: <br>
+            </p>
+
+            <ul style="list-style-type: square;">
+                <li>
+                    I'm a true nerd at heart, I love using tech to solve problems.
+                </li>
+                <li>
+                    I have a great sense of humor. (insert joke here) see?
+                </li>
+                <li>
+                    I am enthusiastic software engineer, husband, and soccer fan.
+                </li>
+            </ul>
+
+
+            <p>
+                My software interests include
+                application development, devops, data science, machine learning, and software architecture.
+
+                My hobbies include
+                playing volleyball, playing soccer, being a part-time fantasy GM for the Celtics, and crypto.
+            </p>
+
+            <p>
+                If you are interested in learning more about me, feel free to check out the contact me page
+                <a routerLink="/contact">here.</a>
+            </p>
+
+            <hr>
+        </div>
+
+        <div class="col-12">
+            <h5>Website Description</h5>
+            <p>
+                I have a few projects that I wanted people to be able to play with, and decided I needed a place to
+                publish them.
+                I figured this was a good opportunity to challenge myself and grow my development skill-set...
+                boy was I right.
+                While I haven't been able to publish everything I would like to yet, there is much more to come.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="col-5">
+        <img [src]="aboutMe.imgPath" alt="" class="rounded-sm w-100" style="max-height: 50vh;">
+    </div>
+
+</div>
+
+
+
+<div class="d-sm-none col-12">
+
+    <img src="{{ aboutMe.imgPath }}" class="float-left mr-3 rounded-sm" alt="my portrait"
+        style="max-height: 40vh; max-width: 30vw">
+    <div>
+        <h5 class="mt-0">About me</h5>
+        <p>
+            My name is Stephen, and this is my website.
+            Here are some things you should know about me: <br>
+        </p>
+
+        <ul style="list-style-type: square;">
+            <li>
+                I'm a true nerd at heart, I love using tech to solve problems.
+            </li>
+            <li>
+                I have a great sense of humor. (insert joke here) see?
+            </li>
+            <li>
+                I am enthusiastic software engineer, husband, and soccer fan.
+            </li>
+        </ul>
+
+
+        <p>
+            My software interests include
+            application development, devops, data science, machine learning, and software architecture.
+
+            My hobbies include
+            playing volleyball, playing soccer, being a part-time fantasy GM for the Celtics, and crypto.
+        </p>
+
+        <p>
+            If you are interested in learning more about me, feel free to check out the contact me page
+            <a routerLink="/contact">here.</a>
+        </p>
+
+    </div>
+
 </div>
 
 <hr>
 
-<div class="media">
-    <img src="{{ aboutMe.imgPath }}" class="align-self-start mr-3 rounded-sm" alt="my portrait"
-        style="max-height: 125px; max-width: 125px;">
-    <div class="media-body">
-        <h5 class="mt-0">About me</h5>
-        <p>
-            I'm a true nerd at heart, and I love building things. I have a great sense of humor and love collaborating with teammates.
-            My software interests include 
-            application development, devops, data science, machine learning, and software architecture. 
-            My hobbies include 
-            playing volleyball, playing soccer, being a part-time fantasy GM for the Celtics, and  crypto. 
-            If you are interested in learning more about me, feel free to check out the contact me page
-            <a routerLink="/contact">here.</a> 
-        </p>
-    </div>
+<div class="container d-sm-none">
+    <h5>Website Description</h5>
+    <p>
+        I have a few projects that I wanted people to be able to play with, and decided I needed a place to
+        publish them.
+        I figured this was a good opportunity to challenge myself and grow my development skill-set...
+        boy was I right.
+        While I haven't been able to publish everything I would like to yet, there is much more to come.
+    </p>
 </div>
