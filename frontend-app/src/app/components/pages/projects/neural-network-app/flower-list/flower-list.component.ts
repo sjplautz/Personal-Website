@@ -59,7 +59,7 @@ export class FlowerListComponent implements OnInit {
       this.getBase64ImageFromUrl(this.imgSrc)
       .then(value => {
         var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
-        this.appSvc.onSearchUrlSelected(sanitizedDataURL);
+        this.appSvc.onSafeUrlSelected(sanitizedDataURL);
       })
   }
 

@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { NeuralNetworkAppService } from 'app/services/apps/neural-network-app/neural-network-app.service';
+import { slides } from './slides';
 
 @Component({
   selector: 'app-image-picker',
@@ -14,31 +16,24 @@ export class ImagePickerComponent implements OnInit {
   unpauseOnArrow = false;
   pauseOnIndicator = false;
   pauseOnHover = true;
-
   pauseOnFocus = true;
   showNavigationIndicators = false;
-  public images: string[] = [];
-  private imagePath: string = "/assets/flowers/";
-  private imageExtension: string = ".jpeg";
-  private dataUrl: string;
 
-  @Input() currentImage: string = "";
+  public slides: any;
+  private imgPath: string;
+  private imgExtension: string;
+  public  imgSrc: string;
+
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
-  constructor(public appSvc: NeuralNetworkAppService) {
+  constructor(public appSvc: NeuralNetworkAppService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    this.images = this.loadImages()
-  }
-
-  loadImages() {
-    let num_photos = 15;
-    let photos = [];
-    for (let i = 0; i < num_photos; i++) {
-      photos.push(this.imagePath + i + this.imageExtension);
-    }
-    return photos;
+    this.slides = slides;
+    this.imgPath = "/assets/flowers/";
+    this.imgExtension = ".jpeg";
+    this.imgSrc = this.imgPath + "1" + this.imgExtension;
   }
 
   togglePaused() {
@@ -51,6 +46,7 @@ export class ImagePickerComponent implements OnInit {
   }
 
   onSlide(slideEvent: NgbSlideEvent) {
+    this.imgSrc = this.imgPath + slideEvent.current + this.imgExtension;
     if (this.unpauseOnArrow && slideEvent.paused &&
       (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
       this.togglePaused();
@@ -60,24 +56,31 @@ export class ImagePickerComponent implements OnInit {
     }
   }
 
-  onImageSelected(img: HTMLImageElement) {
-    this.dataUrl = this.getBase64Image(img);
-    this.appSvc.onImageSelected(this.dataUrl);
+  onImageSelected() {
+    this.getBase64ImageFromUrl(this.imgSrc)      
+    .then(value => {
+        var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
+        this.appSvc.onSafeUrlSelected(sanitizedDataURL);
     // window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
+      })
   }
 
-  /* Method to create base64Data Url from fetched image */
-  getBase64Image(img: HTMLImageElement): string {
-    // We create a HTML canvas object that will create a 2d image
-    var canvas: HTMLCanvasElement = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-    // This will draw image
-    ctx.drawImage(img, 0, 0, img.width, img.height);
-    // Convert the drawn image to Data URL
-    let dataURL: string = canvas.toDataURL("image/png");
-    return dataURL;
+
+  async getBase64ImageFromUrl(imageUrl) {
+    var res = await fetch(imageUrl);
+    var blob = await res.blob();
+  
+    return new Promise((resolve, reject) => {
+      var reader  = new FileReader();
+      reader.addEventListener("load", function () {
+          resolve(reader.result);
+      }, false);
+  
+      reader.onerror = () => {
+        return reject(this);
+      };
+      reader.readAsDataURL(blob);
+    })
   }
 
 }

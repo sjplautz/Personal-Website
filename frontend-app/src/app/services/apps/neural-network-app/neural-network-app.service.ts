@@ -58,7 +58,7 @@ export class NeuralNetworkAppService {
     this.apiSvc.apiPost(JSON.parse(payload))
   }
 
-  onSearchUrlSelected(safeUrl: SafeUrl) {
+  onSafeUrlSelected(safeUrl: SafeUrl) {
     this.selectedImg = safeUrl;
     this.resultsLoading = true;
     this.RenderResultsEmitter.next();
@@ -88,6 +88,5 @@ export class NeuralNetworkAppService {
     this.DeRenderFeedbackEmitter.next();
     this.DeRenderResultsEmitter.next();
   }
-
 
 }

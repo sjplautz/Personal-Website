@@ -51,6 +51,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.appSvc.ShowResultsEmitter.subscribe(
       response => {
         this.currentPostResponse = response;
+        // set an if condition?
+        // if feedback component exists scroll to anchor
+        // else scroll to bottom
+        // also dont scroll on full screen
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
       }));
   }
