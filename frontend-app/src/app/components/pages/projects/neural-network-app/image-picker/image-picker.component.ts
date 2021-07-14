@@ -33,7 +33,7 @@ export class ImagePickerComponent implements OnInit {
     this.slides = slides;
     this.imgPath = "/assets/flowers/";
     this.imgExtension = ".jpeg";
-    this.imgSrc = this.imgPath + "1" + this.imgExtension;
+    this.imgSrc = this.imgPath + "0" + this.imgExtension;
   }
 
   togglePaused() {

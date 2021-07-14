@@ -1,3 +1,10 @@
+<h5 class="text-center mt-5">
+    1.
+    <u>
+        pick an image
+    </u>
+</h5>
+
 <div class="container col-12 d-none d-md-block mb-5">
     <h5 class="text-center mt-5">Preselected Image</h5>
     <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
@@ -5,7 +12,7 @@
         <ng-template ngbSlide *ngFor="let slide of slides; index as i" [id]="slide.id">
             <div class="picsum-img-wrapper">
                 <img [src]="slide.src" alt="My image {{i}} description" class="img-fluid w-100 rounded-lg"
-                    style="max-height: 12rem; min-height: 12rem;">
+                    style="height: 12vh;">
             </div>
         </ng-template>
     </ngb-carousel>

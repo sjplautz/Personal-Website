@@ -1,8 +1,10 @@
+<h4 class="text-center mb-4">OR</h4>
+
 <div class="container col-12 d-none d-md-block mb-5">
     <h5 class="text-center">Upload Custom Image</h5>
     <input type="file" class="form-control-file btn btn-secondary" (change)=onImgFileSelected($event)
         accept="image/x-png,image/jpeg">
-    <img [src]="customImageUrl" class="mt-3 img-fluid w-100" style="max-height: 150px;" alt="">
+    <img [src]="customImageUrl" class="mt-3 img-fluid w-100 rounded-lg" style="max-height: 150px;" alt="">
     <button type="button" class="btn btn-primary mt-2 mb-3 btn-block" (click)="onUploadCustomImage()"
         *ngIf="customImageUrl">Select Image</button>
     <p *ngIf="!customImageUrl">
@@ -16,7 +18,7 @@
     <h5 class="text-center">Upload Custom Image</h5>
     <input type="file" class="form-control-file btn btn-secondary" (change)=onImgFileSelected($event)
         accept="image/x-png,image/jpeg">
-    <img [src]="customImageUrl" class="mt-3 img-fluid w-100" style="max-height: 100px;" alt="">
+    <img [src]="customImageUrl" class="mt-3 img-fluid w-100 rounded-lg" style="max-height: 100px;" alt="">
     <button type="button" class="btn btn-primary mt-2 mb-3 btn-block" (click)="onUploadCustomImage()"
         *ngIf="customImageUrl">Select Image</button>
     <p *ngIf="!customImageUrl">
