@@ -61,7 +61,6 @@ export class ImagePickerComponent implements OnInit {
     .then(value => {
         var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
         this.appSvc.onSafeUrlSelected(sanitizedDataURL);
-    // window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
       })
   }
 

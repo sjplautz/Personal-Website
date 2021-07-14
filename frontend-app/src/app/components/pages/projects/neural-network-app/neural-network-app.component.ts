@@ -22,11 +22,13 @@ export class NeuralNetworkAppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[];
   public renderResults: boolean;
   public renderFeedback: boolean;
+  public renderAccuracy: boolean;
 
   constructor(public appSvc: NeuralNetworkAppService) {
     this.subscriptions = [];
     this.renderResults = false;
     this.renderFeedback = false;
+    this.renderAccuracy = false;
   }
 
   ngOnInit(): void {
@@ -49,7 +51,6 @@ export class NeuralNetworkAppComponent implements OnInit, OnDestroy {
       data => {
         this.renderFeedback = false;
       }))
-
   }
 
   ngOnDestroy(): void {

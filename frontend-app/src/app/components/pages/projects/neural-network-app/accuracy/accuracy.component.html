@@ -14,10 +14,11 @@
     </div>
 </div>
 
-<div class="container d-md-none">
+<div class="container d-md-none" *ngIf="renderAccuracy" [@leaveTrigger]>
     <div class="row justify-content-center">
         <h1>Accuracy: {{this.accuracy | percent:'1.0-1'}}</h1>
     </div>
+    
     <div class="row justify-content-center">
         <p>
             correct: {{appSvc.accuracy.correct}}

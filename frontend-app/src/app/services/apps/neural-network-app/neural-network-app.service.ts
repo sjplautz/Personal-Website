@@ -18,9 +18,11 @@ export class NeuralNetworkAppService {
 
   public RenderResultsEmitter = new Subject<{}>();
   public ShowResultsEmitter = new Subject<{}>();
+  public DeRenderResultsEmitter = new Subject<{}>();
   public RenderFeedbackEmitter = new Subject<{}>();
   public DeRenderFeedbackEmitter = new Subject<{}>();
-  public DeRenderResultsEmitter = new Subject<{}>();
+  public RenderAccuracyEmitter = new Subject<{}>();
+  public DeRenderAccuracyEmitter = new Subject<{}>();
 
 
   constructor(public apiSvc: NeuralNetworkApiService, public dbSvc: NeuralNetworkDbService) { 
@@ -74,6 +76,7 @@ export class NeuralNetworkAppService {
     this.ShowResultsEmitter.next(data)
     // render the feedback component
     this.RenderFeedbackEmitter.next();
+    this.RenderAccuracyEmitter.next();
   }
 
   getPredictedImg(data: JSON){
@@ -87,6 +90,7 @@ export class NeuralNetworkAppService {
     this.dbSvc.apiPost(JSON.parse(payload))
     this.DeRenderFeedbackEmitter.next();
     this.DeRenderResultsEmitter.next();
+    this.DeRenderAccuracyEmitter.next();
   }
 
 }

@@ -33,6 +33,7 @@ import { ResultsComponent } from './components/pages/projects/neural-network-app
 import { FeedbackComponent } from './components/pages/projects/neural-network-app/feedback/feedback.component';
 import { AccuracyComponent } from './components/pages/projects/neural-network-app/accuracy/accuracy.component';
 import { HighlightChangedItemDirective } from './directives/highlight-changed-item.directive';
+import { ScrollToIdDirective } from './directives/scroll-to-id.directive';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { HighlightChangedItemDirective } from './directives/highlight-changed-it
     FeedbackComponent,
     AccuracyComponent,
     HighlightChangedItemDirective,
+    ScrollToIdDirective,
   ],
   imports: [
     BrowserModule,
