@@ -1,5 +1,5 @@
 <div class="container col-12 d-none d-md-block mb-5">
-    <h5 class="text-center mt-5">Use Preselected Image</h5>
+    <h5 class="text-center mt-5">Preselected Image</h5>
         <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
             [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
             <ng-template ngbSlide *ngFor="let img of images; index as i">
@@ -15,7 +15,7 @@
 </div>
 
 <div class="container col-10 col-sm-6 d-md-none mb-5">
-    <h5 class="text-center mt-4">Use Preselected Image</h5>
+    <h5 class="text-center mt-4">Preselected Image</h5>
         <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
             [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
             <ng-template ngbSlide *ngFor="let img of images; index as i">

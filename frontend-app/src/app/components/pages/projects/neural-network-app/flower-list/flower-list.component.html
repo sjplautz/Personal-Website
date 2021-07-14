@@ -11,9 +11,9 @@
 </ng-template>
 
 
-<div class="container col-12 d-none d-md-block mt-4 mb-5 dropdown-wrapper" style="padding-left: 0;">
+<div class="container col-12 d-none d-md-block dropdown-wrapper" style="padding-left: 0;">
 
-    <h6>Search supported flowers:</h6>
+    <h6 class="mt-5">Search supported flowers:</h6>
 
     <input id="typeahead-template" type="text" #input class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
         [resultTemplate]="rt" [inputFormatter]="formatter" (focus)="focus$.next($any($event).target.value)"
@@ -37,12 +37,10 @@
         <button class="btn btn-primary" *ngIf="imgSrc" (click)="onFlowerSelected()">Use</button>
     </div>
 
-    <hr class="mb-5">
-
 </div>
 
 
-<div class="container col-10 col-sm-6 mb-5 d-md-none dropdown-wrapper-2" style="padding-left: 30px;">
+<div class="container col-10 col-sm-6 d-md-none dropdown-wrapper-2" style="padding-left: 30px;">
 
     <h6>Search supported flowers:</h6>
 
@@ -68,5 +66,5 @@
         <button class="btn btn-primary" *ngIf="imgSrc" (click)="onFlowerSelected()">Use</button>
     </div>
 
-    <hr class="mb-5">
+    <hr>
 </div>

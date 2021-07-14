@@ -51,6 +51,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.appSvc.ShowResultsEmitter.subscribe(
       response => {
         this.currentPostResponse = response;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
       }));
   }
 

@@ -63,6 +63,7 @@ export class ImagePickerComponent implements OnInit {
   onImageSelected(img: HTMLImageElement) {
     this.dataUrl = this.getBase64Image(img);
     this.appSvc.onImageSelected(this.dataUrl);
+    // window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
   }
 
   /* Method to create base64Data Url from fetched image */

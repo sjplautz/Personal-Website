@@ -3,8 +3,12 @@
     <div class="col-12" style="height: 25px;"></div>
 
     <div class="container" style="padding-left: 0; padding-right:0;">
-        <div class="row mb-5 justify-content-center">
-            <app-accuracy *ngIf="appSvc.accuracy"></app-accuracy>
+        <div class="row div-wrapper mb-5">
+            <h3>Flower Classifier</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mt-3"></div>
         </div>
 
         <div class="row mb-4 justify-content-center">
@@ -15,9 +19,14 @@
 
             <!-- image upload: step 1 -->
             <div class="col-12 col-md-3">
-                <h1 class="mb-3 text-center">1. pick an image</h1>
+                <h5 class="text-center mt-5">
+                    1.
+                    <u>
+                        pick an image
+                    </u>
+                </h5>
                 <app-image-picker></app-image-picker>
-                <h3 class="text-center mb-4">OR</h3>
+                <h4 class="text-center mb-4">OR</h4>
                 <app-upload-img></app-upload-img>
             </div>
 
@@ -32,6 +41,12 @@
                 <app-feedback></app-feedback>
             </div>
 
+        </div>
+
+        <div class="col-12" style="height: 10vh;"></div>
+
+        <div class="row mb-5 justify-content-center">
+            <app-accuracy *ngIf="appSvc.accuracy"></app-accuracy>
         </div>
     </div>
 
