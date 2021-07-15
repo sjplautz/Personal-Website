@@ -5,29 +5,15 @@
     </u>
 </h5>
 
-<div class="container col-12 d-none d-md-block mb-5">
+<div class="container col-10 col-sm-6 col-md-12 mb-5">
     <h5 class="text-center mt-5">Preselected Image</h5>
     <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
         [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
         <ng-template ngbSlide *ngFor="let slide of slides; index as i" [id]="slide.id">
             <div class="picsum-img-wrapper">
-                <img [src]="slide.src" alt="My image {{i}} description" class="img-fluid w-100 rounded-lg"
-                    style="height: 156px;">
-            </div>
-        </ng-template>
-    </ngb-carousel>
-    <button type="button" class="btn btn-primary btn-block mt-2" (click)="onImageSelected()">
-        Select Image
-    </button>
-</div>
-
-<div class="container col-10 col-sm-6 d-md-none mb-5">
-    <h5 class="text-center mt-4">Preselected Image</h5>
-    <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus"
-        [showNavigationIndicators]="showNavigationIndicators" (slide)="onSlide($event)">
-        <ng-template ngbSlide *ngFor="let slide of slides; index as i" [id]="slide.id">
-            <div class="picsum-img-wrapper">
-                <img [src]="slide.src" alt="My image {{i}} description" class="img-fluid w-100 rounded-lg"
+                <img [src]="slide.src" alt="My image {{i}} description"
+                    class="d-none d-md-block img-fluid w-100 rounded-lg" style="height: 156px;">
+                <img [src]="slide.src" alt="My image {{i}} description" class="d-md-none img-fluid w-100 rounded-lg"
                     style="max-height: 10rem; min-height: 10rem;">
             </div>
         </ng-template>

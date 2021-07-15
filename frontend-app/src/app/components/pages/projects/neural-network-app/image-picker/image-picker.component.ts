@@ -15,14 +15,14 @@ export class ImagePickerComponent implements OnInit {
   paused = false;
   unpauseOnArrow = false;
   pauseOnIndicator = false;
-  pauseOnHover = false;
-  pauseOnFocus = false;
+  pauseOnHover = true;
+  pauseOnFocus = true;
   showNavigationIndicators = false;
 
   public slides: any;
   private imgPath: string;
   private imgExtension: string;
-  public  imgSrc: string;
+  public imgSrc: string;
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
@@ -36,13 +36,31 @@ export class ImagePickerComponent implements OnInit {
     this.imgSrc = this.imgPath + "0" + this.imgExtension;
   }
 
+  togglePaused() {
+    if (this.paused) {
+      this.carousel.cycle();
+    } else {
+      this.carousel.pause();
+    }
+    this.paused = !this.paused;
+  }
+
   onSlide(slideEvent: NgbSlideEvent) {
     this.imgSrc = this.imgPath + slideEvent.current + this.imgExtension;
+    console.log(this.imgSrc)
+
+    if (this.unpauseOnArrow && slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
+      this.togglePaused();
+    }
+    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
+      this.togglePaused();
+    }
   }
 
   onImageSelected() {
-    this.getBase64ImageFromUrl(this.imgSrc)      
-    .then(value => {
+    this.getBase64ImageFromUrl(this.imgSrc)
+      .then(value => {
         var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
         this.appSvc.onSafeUrlSelected(sanitizedDataURL);
       })
@@ -52,13 +70,13 @@ export class ImagePickerComponent implements OnInit {
   async getBase64ImageFromUrl(imageUrl) {
     var res = await fetch(imageUrl);
     var blob = await res.blob();
-  
+
     return new Promise((resolve, reject) => {
-      var reader  = new FileReader();
+      var reader = new FileReader();
       reader.addEventListener("load", function () {
-          resolve(reader.result);
+        resolve(reader.result);
       }, false);
-  
+
       reader.onerror = () => {
         return reject(this);
       };
