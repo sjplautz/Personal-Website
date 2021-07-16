@@ -37,12 +37,26 @@ export class FlowerListComponent implements OnInit {
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
       map(term => term === '' ? flowers
-        : flowers.filter(v => v.name.toLowerCase().slice(0, term.length) === term)))
+        : flowers.filter(
+          flower => {
+            let flower_name = flower.name.toLowerCase();
+            let flower_words = flower_name.split(' ');
+            var use = false;
+
+            for(const word of flower_words){
+              if(word.slice(0, term.length) === term){
+                use = true;
+                break
+              }
+            }
+            return use;
+          }
+        )));
   }
 
   formatter = (x: { name: string }) => x.name;
 
-  onSelect($event, input){
+  onSelect($event, input) {
     // clears the search bar after a selection 
     $event.preventDefault();
     input.value = '';
@@ -55,8 +69,8 @@ export class FlowerListComponent implements OnInit {
     console.log("generated image source:", this.imgSrc)
   }
 
-  onFlowerSelected(){
-      this.getBase64ImageFromUrl(this.imgSrc)
+  onFlowerSelected() {
+    this.getBase64ImageFromUrl(this.imgSrc)
       .then(value => {
         var sanitizedDataURL = this.sanitizer.bypassSecurityTrustUrl(String(value));
         this.appSvc.onSafeUrlSelected(sanitizedDataURL);
@@ -66,13 +80,13 @@ export class FlowerListComponent implements OnInit {
   async getBase64ImageFromUrl(imageUrl) {
     var res = await fetch(imageUrl);
     var blob = await res.blob();
-  
+
     return new Promise((resolve, reject) => {
-      var reader  = new FileReader();
+      var reader = new FileReader();
       reader.addEventListener("load", function () {
-          resolve(reader.result);
+        resolve(reader.result);
       }, false);
-  
+
       reader.onerror = () => {
         return reject(this);
       };
