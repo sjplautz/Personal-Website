@@ -1,8 +1,8 @@
 FROM python:3.9
 
 WORKDIR /usr/src
-COPY ./requirements.txt .
-RUN pip install --no-cache-dir --compile --gloabl-option=build_ext --upgrade -r ./requirements.txt
+COPY ./requirements.txt ./
+RUN pip install --no-cache-dir --compile --upgrade -r ./requirements.txt
 
 # Can be overridden by docker-compose environment variable
 ENV PORT=8080

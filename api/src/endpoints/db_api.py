@@ -3,22 +3,11 @@ from pymongo import MongoClient
 from urllib import parse
 from fastapi.encoders import jsonable_encoder
 from os import getenv
-from pydantic import BaseModel
-from enum import Enum
+from src.utils.db_api.pydantic_models import NewAccuracyData, AccuracyFeedback
+
 
 db_router = APIRouter(prefix="/db", tags=["Database"])
 
-class FeedbackEnum(str, Enum):
-    correct='correct'
-    incorrect='incorrect'
-
-class AccuracyFeedback(BaseModel):
-    feedback: FeedbackEnum
-
-class NewAccuracyData(BaseModel):
-    msg: str
-    correct: int
-    incorrect: int
 
 @db_router.get("/accuracy")
 def get_accuracy():

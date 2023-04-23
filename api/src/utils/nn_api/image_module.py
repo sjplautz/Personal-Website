@@ -1,25 +1,18 @@
-from pydantic import BaseModel
-from endpoints.nn_api import ClassificationRequest
+from typing import Dict
 import numpy as np
 from PIL import Image
 import io
 import base64
 import tensorflow as tf
-from utils.nn_api.categorize_photo import categorize_image
-from app import ml_model_map
+from src.utils.nn_api.categorize_photo import categorize_image
+from src.utils.nn_api.pydantic_models import ClassificationResults, ClassificationRequest
 
 IMAGE_HEADER = "data:image/jpeg;base64,"
 IMG_SIZE = 299
 
-class ClassificationPrediction(BaseModel):
-    category: str
-    confidence: str
 
-class ClassificationResults(BaseModel):
-    guess1: ClassificationPrediction
-    guess2: ClassificationPrediction 
 
-def handle_img_post(post_content: ClassificationRequest) -> ClassificationResults:
+def handle_img_post(post_content: ClassificationRequest, ml_model_map: Dict[str, tf.keras.Model]) -> ClassificationResults:
     # get an image handle that cv2 can operate on
     img = b64_string_to_img(post_content.url)
     # transform the image for nn use
